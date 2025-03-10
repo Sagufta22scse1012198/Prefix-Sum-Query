@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class PrefixSumQuery {
+    public static int[] computePrefixSum(int[] arr) {
+        int N = arr.length;
+        int[] prefix = new int[N];
+        prefix[0] = arr[0];
+        for (int i = 1; i < N; i++) {
+            prefix[i] = prefix[i - 1] + arr[i];
+        }
+        return prefix;
+    }
+    public static int querySum(int[] prefix, int L, int R) {
+        if (L == 0) return prefix[R];
+        return prefix[R] - prefix[L - 1];
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter array size: ");
+        int N = sc.nextInt();
+        int[] arr = new int[N];
+        System.out.println("Enter array elements: ");
+        for (int i = 0; i < N; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int[] prefix = computePrefixSum(arr);
+        System.out.print("Enter number of queries: ");
+        int Q = sc.nextInt();
+        System.out.println("Enter queries (L R): ");
+        for (int i = 0; i < Q; i++) {
+            int L = sc.nextInt();
+            int R = sc.nextInt();
+            System.out.println("Sum from " + L + " to " + R + " = " + querySum(prefix, L, R));
+        }
+
+        sc.close();
+    }
+}
+    
